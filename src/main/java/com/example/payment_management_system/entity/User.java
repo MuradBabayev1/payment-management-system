@@ -2,14 +2,13 @@ package com.example.payment_management_system.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 @Entity
+@Getter
+@Setter
 @Table(name="users")
 public class User {
     @Id
