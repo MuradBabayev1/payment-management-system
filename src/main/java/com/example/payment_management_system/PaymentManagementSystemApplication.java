@@ -30,6 +30,7 @@ public class PaymentManagementSystemApplication {
 
 			System.out.println(">>> Melumatlar ugurla yuklendi");
 
+
 		};
 	}
 
