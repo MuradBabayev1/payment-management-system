@@ -2,16 +2,17 @@
 <html lang="az">
 <head>
   <meta charset="UTF-8">
-  <title>Ödəniş Sistemi - Dashboard</title>
+  <title>Ödəniş Paneli</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+<div class="dashboard-container">
   <div class="header">
-    <div class="logo">💸 Payment System</div>
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Şirkət adı ilə axtar...">
+    <h2 class="logo">Hottech</h2>
+    <div class="actions">
+      <input type="text" id="searchInput" placeholder="Şirkət axtar...">
+      <button class="btn btn-add">+ Yeni Ödəniş</button>
     </div>
   </div>
 
@@ -23,7 +24,7 @@
       <th>Tarix</th>
       <th>Qiymət</th>
       <th>Status</th>
-      <th>Əməliyyat</th>
+      <th>Əməliyyatlar</th>
     </tr>
     </thead>
     <tbody id="payment-table-body">
@@ -31,5 +32,6 @@
   </table>
 </div>
 
+<script src="payment.js"></script>
 </body>
 </html>
