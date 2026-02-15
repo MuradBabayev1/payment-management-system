@@ -1,6 +1,5 @@
 const API_URL = "http://localhost:8080/api/payments";
 
-// Səhifə açılan kimi məlumatları yüklə
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Səhifə yükləndi, API-yə müraciət edilir...");
     loadPayments();
@@ -26,6 +25,7 @@ async function loadPayments() {
         }
 
         payments.forEach(p => {
+            // Diqqət: row dəyişəninin sonundakı ` işarəsinə fikir ver
             const row = `
                 <tr>
                     <td>${p.CompanyName}</td>
@@ -36,8 +36,8 @@ async function loadPayments() {
                     <td>
                         <button class="btn btn-edit" onclick="editPayment(${p.id})">Düzəliş</button>
                     </td>
-                </tr>
-            `;
+                </tr>`;
+
             tableBody.innerHTML += row;
         });
 

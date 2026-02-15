@@ -9,20 +9,19 @@
     --warning: #f39c12;
 }
 
-/* Bütün səhifəni mərkəzləşdirir */
 body {
     background-color: var(--bg-color);
     font-family: 'Inter', -apple-system, sans-serif;
     color: var(--text-main);
     margin: 0;
     display: flex;
-    justify-content: center; /* Üfüqi mərkəzləşdirmə */
-    align-items: center;     /* Şaquli mərkəzləşdirmə */
-    min-height: 100vh;       /* Ekranın tam hündürlüyü */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .dashboard-container {
-    width: 9%;
+    width: 95%;
     max-width: 1100px;
     background: var(--card-bg);
     padding: 40px;
@@ -30,7 +29,6 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 
-/* Header hissəsi */
 .header {
     display: flex;
     justify-content: space-between;
@@ -45,7 +43,6 @@ body {
     letter-spacing: -1px;
 }
 
-/* Axtarış çubuğu */
 .actions input {
     padding: 12px 20px;
     border: 2px solid var(--border-color);
@@ -61,4 +58,70 @@ body {
     border-color: var(--primary-color);
     background: #fff;
     box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 15px 20px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: left;
+    border-bottom: 2px solid var(--border-color);
+}
+
+td {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 15px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background-color: #fcfdfe;
+}
+
+.status-paid {
+    background: rgba(46, 204, 113, 0.12);
+    color: var(--success);
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: rgba(243, 156, 18, 0.12);
+    color: var(--warning);
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.btn-edit {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(67, 97, 238, 0.2);
+    opacity: 0.9;
 }
