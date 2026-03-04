@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <title>Ödəniş Paneli</title>
   <link rel="stylesheet" href="style.css">
+  <script>
+    (function () {
+      if (!sessionStorage.getItem('user')) {
+        window.location.replace('login.html');
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -11,8 +18,10 @@
   <div class="header">
     <h2 class="logo">Hottech</h2>
     <div class="actions">
+      <span id="welcomeLabel" style="font-size:14px; color:#8d99ae; margin-right:8px;"></span>
       <input type="text" id="searchInput" placeholder="Şirkət axtar...">
       <button class="btn-add">+ Yeni Ödəniş</button>
+      <button class="btn-logout" onclick="logout()">Çıxış</button>
     </div>
   </div>
 
@@ -32,6 +41,17 @@
   </table>
 </div>
 
+<script>
+  const _u = JSON.parse(sessionStorage.getItem('user') || 'null');
+  if (_u) {
+    const label = document.getElementById('welcomeLabel');
+    if (label) label.textContent = 'Salam, ' + _u.username;
+  }
+  function logout() {
+    sessionStorage.removeItem('user');
+    window.location.href = 'login.html';
+  }
+</script>
 <script src="payment.js"></script>
 
 <!-- Yeni Ödəniş Modal -->
