@@ -1,5 +1,37 @@
 const API_URL = "http://localhost:8080/api/payments";
 
+function normalizeStatus(rawStatus) {
+    if (!rawStatus) return "Gözləyir";
+
+    const normalized = rawStatus
+        .toString()
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+    if (normalized === "odenilib" || normalized === "paid") {
+        return "Ödənilib";
+    }
+
+    if (normalized === "gozleyir" || normalized === "pending") {
+        return "Gözləyir";
+    }
+
+    return rawStatus;
+}
+
+function normalizeDate(rawDate) {
+    if (!rawDate || rawDate === 'null') return '-';
+    const s = rawDate.toString().trim();
+    // Convert YYYY-MM-DD → DD.MM.YYYY for display
+    if (/^\d{4}-\d{2}-\d{2}$/.test(s)) {
+        const [y, m, d] = s.split('-');
+        return `${d}.${m}.${y}`;
+    }
+    return s; // Already DD.MM.YYYY or other format
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Səhifə yükləndi, API-yə müraciət edilir...");
     loadPayments();
@@ -25,14 +57,16 @@ async function loadPayments() {
         }
 
         payments.forEach(p => {
+            const displayStatus = normalizeStatus(p.status);
+            const displayDate = normalizeDate(p.date);
             // Diqqət: row dəyişəninin sonundakı ` işarəsinə fikir ver
             const row = `
                 <tr>
                     <td>${p.CompanyName}</td>
                     <td>${p.ServiceName}</td>
-                    <td>${p.date}</td>
+                    <td>${displayDate}</td>
                     <td>${p.amount} AZN</td>
-                    <td class="${p.status === 'Ödənilib' ? 'status-paid' : 'status-pending'}">${p.status}</td>
+                    <td class="${displayStatus === 'Ödənilib' ? 'status-paid' : 'status-pending'}">${displayStatus}</td>
                     <td>
                         <button class="btn btn-edit" onclick="editPayment(${p.id})">Düzəliş</button>
                     </td>

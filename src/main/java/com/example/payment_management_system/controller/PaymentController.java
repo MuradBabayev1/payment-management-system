@@ -3,7 +3,6 @@ package com.example.payment_management_system.controller;
 
 import com.example.payment_management_system.entity.Payment;
 import com.example.payment_management_system.repository.PaymentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,6 +42,11 @@ public class PaymentController {
         if (updatedPayment.getStatus() != null) existing.setStatus(updatedPayment.getStatus());
         existing.setAmount(updatedPayment.getAmount());
         return paymentRepository.save(existing);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePayment(@PathVariable("id") Long id) {
+        paymentRepository.deleteById(id);
     }
 }
 
