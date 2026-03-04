@@ -32,6 +32,42 @@
   </table>
 </div>
 
-<script src="payment.js?v=3"></script>
+<script src="payment.js"></script>
+
+<!-- Yeni Ödəniş Modal -->
+<div id="addModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); justify-content:center; align-items:center; z-index:1000;">
+  <div style="background:#fff; border-radius:16px; padding:36px; width:420px; box-shadow:0 20px 40px rgba(0,0,0,0.15);">
+    <h3 style="margin:0 0 24px; color:#2b2d42;">Yeni Ödəniş</h3>
+    <form id="addForm">
+      <div class="form-group-modal">
+        <label>Şirkət</label>
+        <input type="text" id="newCompanyName" required>
+      </div>
+      <div class="form-group-modal">
+        <label>Xidmət</label>
+        <input type="text" id="newServiceName" required>
+      </div>
+      <div class="form-group-modal">
+        <label>Məbləğ (AZN)</label>
+        <input type="number" step="0.01" id="newAmount" required>
+      </div>
+      <div class="form-group-modal">
+        <label>Tarix</label>
+        <input type="date" id="newDate">
+      </div>
+      <div class="form-group-modal">
+        <label>Status</label>
+        <select id="newStatus">
+          <option value="Gözləyir">Gözləyir</option>
+          <option value="Ödənilib">Ödənilib</option>
+        </select>
+      </div>
+      <div style="display:flex; gap:10px; margin-top:20px;">
+        <button type="submit" style="flex:1; background:#4361ee; color:#fff; border:none; padding:12px; border-radius:10px; cursor:pointer; font-size:15px;">Əlavə Et</button>
+        <button type="button" onclick="closeAddModal()" style="flex:1; background:#e0e0e0; color:#333; border:none; padding:12px; border-radius:10px; cursor:pointer; font-size:15px;">Ləğv Et</button>
+      </div>
+    </form>
+  </div>
+</div>
 </body>
 </html>

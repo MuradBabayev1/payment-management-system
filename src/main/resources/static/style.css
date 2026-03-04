@@ -86,11 +86,67 @@ tr:last-child td {
     border-bottom: none;
 }
 
-tr:hover td {
-    background-color: #fcfdfe;
+.btn-add {
+    padding: 12px 22px;
+    background: #4361ee;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 12px;
+    transition: background 0.2s;
 }
 
-.status-paid {
+.btn-add:hover {
+    background: #3451d1;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-left: 6px;
+    transition: background 0.2s;
+}
+
+.btn-delete:hover {
+    background: #c0392b;
+}
+
+.form-group-modal {
+    margin-bottom: 16px;
+}
+
+.form-group-modal label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #555;
+}
+
+.form-group-modal input,
+.form-group-modal select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group-modal input:focus,
+.form-group-modal select:focus {
+    border-color: #4361ee;
+}
     background: rgba(46, 204, 113, 0.12);
     color: var(--success);
     padding: 6px 14px;

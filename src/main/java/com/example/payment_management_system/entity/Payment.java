@@ -1,6 +1,5 @@
 package com.example.payment_management_system.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,13 +14,11 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty("CompanyName")
-    @Column(nullable = false)
-    private String CompanyName;
+    @Column(name = "CompanyName", nullable = false)
+    private String companyName;
 
-    @JsonProperty("ServiceName")
-    @Column(nullable = false)
-    private String ServiceName;
+    @Column(name = "ServiceName", nullable = false)
+    private String serviceName;
     private String date;
     private double amount;
     private String status;

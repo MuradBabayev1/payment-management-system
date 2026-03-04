@@ -35,6 +35,23 @@ function normalizeDate(rawDate) {
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Səhifə yükləndi, API-yə müraciət edilir...");
     loadPayments();
+
+    const searchInput = document.getElementById("searchInput");
+    if (searchInput) {
+        searchInput.addEventListener("input", () => {
+            const query = searchInput.value.trim().toLowerCase();
+            const rows = document.querySelectorAll("#payment-table-body tr");
+            rows.forEach(row => {
+                const company = row.cells[0]?.textContent.toLowerCase() || "";
+                row.style.display = company.includes(query) ? "" : "none";
+            });
+        });
+    }
+
+    const addBtn = document.querySelector(".btn-add");
+    if (addBtn) {
+        addBtn.addEventListener("click", () => openAddModal());
+    }
 });
 
 async function loadPayments() {
@@ -59,16 +76,16 @@ async function loadPayments() {
         payments.forEach(p => {
             const displayStatus = normalizeStatus(p.status);
             const displayDate = normalizeDate(p.date);
-            // Diqqət: row dəyişəninin sonundakı ` işarəsinə fikir ver
             const row = `
                 <tr>
-                    <td>${p.CompanyName}</td>
-                    <td>${p.ServiceName}</td>
+                    <td>${p.companyName}</td>
+                    <td>${p.serviceName}</td>
                     <td>${displayDate}</td>
                     <td>${p.amount} AZN</td>
                     <td class="${displayStatus === 'Ödənilib' ? 'status-paid' : 'status-pending'}">${displayStatus}</td>
                     <td>
                         <button class="btn btn-edit" onclick="editPayment(${p.id})">Düzəliş</button>
+                        <button class="btn btn-delete" onclick="deletePayment(${p.id})">Sil</button>
                     </td>
                 </tr>`;
 
@@ -84,3 +101,58 @@ async function loadPayments() {
 function editPayment(id) {
     window.location.href = `edit-payment.html?id=${id}`;
 }
+
+async function deletePayment(id) {
+    if (!confirm("Bu ödənişi silmək istədiyinizdən əminsiniz?")) return;
+    try {
+        const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        if (response.ok) {
+            loadPayments();
+        } else {
+            alert("Silinmə zamanı xəta baş verdi.");
+        }
+    } catch (error) {
+        console.error("Silinmə xətası:", error);
+        alert("Serverlə əlaqə qurulası olmadı.");
+    }
+}
+
+function openAddModal() {
+    document.getElementById('addModal').style.display = 'flex';
+}
+
+function closeAddModal() {
+    document.getElementById('addModal').style.display = 'none';
+    document.getElementById('addForm').reset();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const addForm = document.getElementById('addForm');
+    if (addForm) {
+        addForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newPayment = {
+                companyName: document.getElementById('newCompanyName').value,
+                serviceName: document.getElementById('newServiceName').value,
+                amount: parseFloat(document.getElementById('newAmount').value),
+                date: document.getElementById('newDate').value,
+                status: document.getElementById('newStatus').value
+            };
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newPayment)
+                });
+                if (response.ok) {
+                    closeAddModal();
+                    loadPayments();
+                } else {
+                    alert('Ödəniş əlavə edilərkən xəta baş verdi.');
+                }
+            } catch (error) {
+                alert('Serverlə əlaqə qurulmadı: ' + error.message);
+            }
+        });
+    }
+});
