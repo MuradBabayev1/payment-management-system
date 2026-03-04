@@ -28,6 +28,8 @@ async function fetchPaymentData(id) {
         document.getElementById('companyName').value = data.companyName || data.CompanyName;
         document.getElementById('serviceName').value = data.serviceName || data.ServiceName;
         document.getElementById('amount').value = data.amount;
+        document.getElementById('date').value = data.date || '';
+        document.getElementById('status').value = data.status || 'Gözləyir';
 
     } catch (error) {
         console.error("Xəta:", error);
@@ -42,7 +44,9 @@ editForm.addEventListener('submit', async (e) => {
     const updatedData = {
         CompanyName: document.getElementById('companyName').value,
         ServiceName: document.getElementById('serviceName').value,
-        amount: parseFloat(document.getElementById('amount').value)
+        amount: parseFloat(document.getElementById('amount').value),
+        date: document.getElementById('date').value,
+        status: document.getElementById('status').value
     };
 
     try {

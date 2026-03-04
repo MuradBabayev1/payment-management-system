@@ -35,8 +35,14 @@ public class PaymentController {
 
     @PutMapping("/{id}")
     public Payment updatePayment(@PathVariable("id") Long id, @RequestBody Payment updatedPayment) {
-        updatedPayment.setId(id);
-        return paymentRepository.save(updatedPayment);
+        Payment existing = paymentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Payment tapılmadı: " + id));
+        if (updatedPayment.getCompanyName() != null) existing.setCompanyName(updatedPayment.getCompanyName());
+        if (updatedPayment.getServiceName() != null) existing.setServiceName(updatedPayment.getServiceName());
+        if (updatedPayment.getDate() != null) existing.setDate(updatedPayment.getDate());
+        if (updatedPayment.getStatus() != null) existing.setStatus(updatedPayment.getStatus());
+        existing.setAmount(updatedPayment.getAmount());
+        return paymentRepository.save(existing);
     }
 }
 
